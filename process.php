@@ -14,7 +14,7 @@
 <h1> TuneShare - Share Your Fave Tunes & Join The Community </h1>
 <main>
     <?php
-
+    
     $first_name = filter_input(INPUT_POST, 'fname');
     $last_name = filter_input(INPUT_POST, 'lname');
     $genre = filter_input(INPUT_POST, 'genre');
@@ -23,10 +23,23 @@
     $fav_song = filter_input(INPUT_POST, 'favsong');
     $link = filter_input(INPUT_POST, 'link');
     $age = filter_input(INPUT_POST, 'age');
+
+    $_SESSION["firstname"] =  $first_name;
+    $_SESSION["lastname"] = $last_name;
+    $_SESSION["genre"] = $genre;
+    $_SESSION["age"] = $age;
+    $_SESSION["location"] = $location;
+    $_SESSION["email"] = $email;
+    $_SESSION["favsong"] = $fav_song;
+    //$_SESSION["profilepic"]= $profilepic; this was broken on fork
+    $_SESSION["link"] = $link;
     /* image */
-    $photo = $_FILES['photo']['name'];
-    $photo_type = $_FILES['photo']['type'];
-    $photo_size = $_FILES['photo']['size'];
+    //$photo = $_FILES['photo']['name'];
+    //$photo_type = $_FILES['photo']['type'];
+    //$photo_size = $_FILES['photo']['size'];
+
+
+    // @Jessica Gilifan, I had to comment out that cause it was broken upon forking this repo. 
     $id = null;
     $id = filter_input(INPUT_POST, 'user_id');
 
@@ -76,17 +89,28 @@
     }
 
     // check photo is the right size and type 
-    if ((($photo_type !== 'image/gif') || ($photo_type !== 'image/jpeg') || ($photo_type !== 'image/jpg') || ($photo_type !== 'image/png')) && ($photo_size < 0) && ($photo_size >= MAXFILESIZE)) {
-        //making sure no upload errors 
-        if ($_FILES['photo']['error'] !== 0) {
-            $ok = false;
-            echo "Please submit a photo that is a jpg, png or gif and less than 32kb";
-        }
-    }
+    // if ((($photo_type !== 'image/gif') || ($photo_type !== 'image/jpeg') || ($photo_type !== 'image/jpg') || ($photo_type !== 'image/png')) && ($photo_size < 0) && ($photo_size >= MAXFILESIZE)) {
+    //     //making sure no upload errors 
+    //     if ($_FILES['photo']['error'] !== 0) {
+    //         $ok = false;
+    //         echo "Please submit a photo that is a jpg, png or gif and less than 32kb";
+    //     }
+    // }
     //if form validates, try to connect to database and add info
 
     if ($ok === true) {
         try {
+
+            echo "<p>Firstname:   {$_SESSION["firstname"]}  </p>";
+            echo "<p> Last Name:   {$_SESSION["lastname"]}  </p>";
+            echo "<p> Genre:   {$_SESSION["genre"]}  </p>";
+            echo "<p> Age:   {$_SESSION["age"]}  </p>";
+            echo "<p> Location:   {$_SESSION["location"]}  </p>";
+            echo "<p> Email:   {$_SESSION["email"]}  </p>";
+            echo "<p> Favourite Song:  {$_SESSION["favsong"]}  </p>";
+            echo "<p> Profile Pic:  {$_SESSION["profilepic"]}  </p>";
+            echo "<p> Link:   {$_SESSION["link"]}  </p>";
+
             $target = UPLOADPATH . $photo;
             move_uploaded_file($_FILES['photo']['tmp_name'], $target);
             // connecting to the database

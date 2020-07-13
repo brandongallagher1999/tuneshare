@@ -1,4 +1,5 @@
-<?php require_once('header.php'); ?>
+<?php require_once('header.php');
+?>
 <body class="add">
 <div class="container inner">
 <header class="masthead mb-auto">
@@ -52,6 +53,7 @@
       $favsong = $record['favsong']; 
       $profilepic = $record['profile'];
       $link = $record['link'];
+
       endforeach; 
       //close the db connection 
       $statement->closeCursor(); 

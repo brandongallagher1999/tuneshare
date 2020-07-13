@@ -1,4 +1,6 @@
-<?php require_once('header.php'); ?>
+<?php require_once('header.php');
+  
+ ?>
 <body class="view">
 <div class="container inner">
 <header class="masthead mb-auto">
@@ -11,6 +13,9 @@
       </nav>
     </div>
   </header>
+  <form action="destroy.php" method="post" enctype="multipart/form-data" class="form">
+    <input type="submit" name="submit" value="Destroy session" class="btn">
+  </form>
     <?php
     try {
     //connect to our db 
@@ -29,8 +34,22 @@
     $records = $statement->fetchAll(); 
 
     // echo out the top of the table 
+    
+    echo "<br> <br><br>";
+    echo "<p>Firstname:   {$_SESSION["firstname"]}  </p>";
+    echo "<p> Last Name:   {$_SESSION["lastname"]}  </p>";
+    echo "<p> Genre:   {$_SESSION["genre"]}  </p>";
+    echo "<p> Age:   {$_SESSION["age"]}  </p>";
+    echo "<p> Location:   {$_SESSION["location"]}  </p>";
+    echo "<p> Email:   {$_SESSION["email"]}  </p>";
+    echo "<p> Favourite Song:  {$_SESSION["favsong"]}  </p>";
+    //echo "<p> Profile Pic:  {$_SESSION["profilepic"]}  </p>"; we can just assume profile pic will be broken for now
+    echo "<p> Link:   {$_SESSION["link"]}  </p>";
+
 
     echo "<table class='table'>";
+
+    
 
     foreach ($records as $record) {
         echo "<tr><td><img src='images/". $record['photo']. "' alt='" . $record['photo'] . "'></td><td>"
@@ -42,7 +61,7 @@
     }
     catch(PDOException $e) {
         $error_message = $e->getMessage(); 
-        echo "<p> $error message </p>"; 
+        echo "<p> $error_message message </p>"; 
     }
     ?>
     </main>

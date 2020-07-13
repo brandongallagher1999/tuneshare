@@ -8,5 +8,6 @@ CREATE TABLE `songs` (
   `age` int(10) NOT NULL,
   `favsong` varchar(100) NOT NULL,
   `link` varchar(100) NOT NULL,
-  `photo` varchar(200) NOT NULL
+  `photo` varchar(200) NOT NULL,
+  PRIMARY KEY(user_id)
 );
